@@ -33,8 +33,16 @@ class Auth extends ChangeNotifier {
     _auth["isAuth"] = true;
   }
 
+  void clearAuth() {
+    _auth = {};
+  }
+
   bool isAuth() {
     if (_auth["isAuth"] != null) return _auth["isAuth"];
     return false;
+  }
+
+  Map<String, dynamic> getAuth() {
+    return _auth;
   }
 }

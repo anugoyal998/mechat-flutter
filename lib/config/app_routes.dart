@@ -16,4 +16,5 @@ class AppRoutes {
   static const register = "/register";
   static const home = "/home";
   static const splash = "/splash";
+  static const settings = "/settings";
 }

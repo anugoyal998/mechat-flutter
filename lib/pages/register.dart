@@ -5,8 +5,10 @@ import 'package:mechat_flutter/components/dialog.dart';
 import 'package:mechat_flutter/components/textfield.dart';
 import 'package:mechat_flutter/config/app_routes.dart';
 import 'package:mechat_flutter/config/url.dart';
+import 'package:mechat_flutter/provider/auth.dart';
 import 'package:mechat_flutter/styles/app_colors.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -51,6 +53,11 @@ class _RegisterPageState extends State<RegisterPage> {
             "accessToken", decodedResponse["accessToken"]);
         sharedPreferences.setString(
             "refreshToken", decodedResponse["refreshToken"]);
+        Provider.of<Auth>(context, listen: false)
+            .setAccessToken(decodedResponse["accessToken"]);
+        Provider.of<Auth>(context, listen: false)
+            .setRefreshToken(decodedResponse["refreshToken"]);
+        Provider.of<Auth>(context, listen: false).setAuthFromAccessToken();
         // print(await FlutterKeychain.get(key: "refreshToken"));
         await showAlertDialog(context: context, title: "Register Success");
         Navigator.of(context).pushReplacementNamed(AppRoutes.home);

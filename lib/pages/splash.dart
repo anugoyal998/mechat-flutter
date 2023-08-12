@@ -31,26 +31,26 @@ class _SplashPageState extends State<SplashPage> {
     // print("autenticate");
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    String? accessToken = await sharedPreferences.getString("accessToken");
+    String? accessToken = sharedPreferences.getString("accessToken");
     String? refreshToken = sharedPreferences.getString("refreshToken");
     // print(refreshToken);
     if (refreshToken == null || refreshToken == "") return;
-    // var url = Uri.parse("${ApiUrl().apiUrl}/api/refresh");
-    // var client = http.Client();
+    var url = Uri.parse("${ApiUrl().apiUrl}/api/refresh");
+    var client = http.Client();
     try {
-      // var response = await client.post(url,
-      //     body: jsonEncode({"refreshToken": refreshToken}),
-      //     headers: ApiUrl().headers);
-      // var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-      // print(decodedResponse);
-      // if (decodedResponse["accessToken"] != null &&
-      //     decodedResponse["accessToken"] != "")
-      //   Provider.of<Auth>(context, listen: false)
-      //       .setAccessToken(decodedResponse["accessToken"]);
-      // if (decodedResponse["refreshToken"] != null &&
-      //     decodedResponse["refreshToken"] != "")
-      //   Provider.of<Auth>(context, listen: false)
-      //       .setAccessToken(decodedResponse["refreshToken"]);
+      var response = await client.post(url,
+          body: jsonEncode({"refreshToken": refreshToken}),
+          headers: ApiUrl().headers);
+      var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+      print(decodedResponse);
+      if (decodedResponse["accessToken"] != null &&
+          decodedResponse["accessToken"] != "")
+        Provider.of<Auth>(context, listen: false)
+            .setAccessToken(decodedResponse["accessToken"]);
+      if (decodedResponse["refreshToken"] != null &&
+          decodedResponse["refreshToken"] != "")
+        Provider.of<Auth>(context, listen: false)
+            .setAccessToken(decodedResponse["refreshToken"]);
       if (accessToken != null)
         Provider.of<Auth>(context, listen: false).setAccessToken(accessToken);
       if (refreshToken != null)
@@ -59,7 +59,7 @@ class _SplashPageState extends State<SplashPage> {
     } catch (e) {
       print(e);
     } finally {
-      // client.close();
+      client.close();
     }
   }
 

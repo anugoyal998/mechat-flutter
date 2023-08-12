@@ -8,25 +8,27 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   String? Function(String?)? validator;
   final TextEditingController? controller;
+  final Widget? prefixIcon;
 
   MyTextField({
     Key? key,
     required this.hintText,
     required this.onChanged,
     required this.obscureText,
-    this.validator, 
+    this.validator,
     this.controller,
+    this.prefixIcon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        hintText: hintText,
-        filled: true,
-        fillColor: AppColors.darkSecondary,
-        border: OutlineInputBorder(),
-      ),
+          hintText: hintText,
+          filled: true,
+          fillColor: AppColors.darkSecondary,
+          border: OutlineInputBorder(),
+          prefixIcon: prefixIcon),
       onChanged: (value) => onChanged(value),
       obscureText: obscureText,
       validator: validator,
