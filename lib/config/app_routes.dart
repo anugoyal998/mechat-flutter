@@ -1,3 +1,4 @@
+import 'package:mechat_flutter/pages/chat.dart';
 import 'package:mechat_flutter/pages/home.dart';
 import 'package:mechat_flutter/pages/login.dart';
 import 'package:mechat_flutter/pages/register.dart';
@@ -9,7 +10,8 @@ class AppRoutes {
     login: (context) => LoginPage(),
     home: (context) => HomePage(),
     splash: (context) => SplashPage(),
-    register: (context) => RegisterPage()
+    register: (context) => RegisterPage(),
+    chat: (context) => ChatPage()
   };
 
   static const login = "/";
@@ -17,4 +19,5 @@ class AppRoutes {
   static const home = "/home";
   static const splash = "/splash";
   static const settings = "/settings";
+  static const chat = "/chat";
 }

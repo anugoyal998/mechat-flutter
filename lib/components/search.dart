@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mechat_flutter/components/textfield.dart';
 
 class Search extends StatelessWidget {
-  const Search({super.key});
+  final Function onChanged;
+
+  const Search({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return MyTextField(
       hintText: 'Search...',
-      onChanged: () {},
+      onChanged: onChanged,
       obscureText: false,
     );
   }

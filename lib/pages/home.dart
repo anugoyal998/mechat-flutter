@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mechat_flutter/components/menudropdown.dart';
 import 'package:mechat_flutter/components/search.dart';
+import 'package:mechat_flutter/config/app_routes.dart';
 import 'package:mechat_flutter/config/url.dart';
 import 'package:mechat_flutter/model/user.model.dart';
 import 'package:mechat_flutter/provider/auth.dart';
@@ -66,9 +67,25 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void handleSearchChange(String value) {
+    if (value == "") {
+      setState(() {
+        users = [...usersCopy];
+      });
+      return;
+    }
+    List<User> updatedUsers = [...usersCopy];
+    updatedUsers.retainWhere(
+        (element) => element.name!.toLowerCase().contains(value.toLowerCase()));
+    setState(() {
+      users = updatedUsers;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(users);
+    // print("${users.length} users");
+    // print("${usersCopy.length} usersCopy");
     return Scaffold(
       appBar: AppBar(
         title: const Text("MeChat"),
@@ -82,7 +99,9 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const Search(),
+              Search(
+                onChanged: handleSearchChange,
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -112,6 +131,7 @@ class UserCard extends StatelessWidget {
     return TextButton(
       onPressed: () {
         Provider.of<CurrentChat>(context, listen: false).setCurrentChat(user);
+        Navigator.of(context).pushNamed(AppRoutes.chat);
       },
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 4, 0, 4),
